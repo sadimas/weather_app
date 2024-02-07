@@ -6,7 +6,7 @@ import 'package:weather_app_join_to_it/models/weather_model.dart';
 
 class WeatherApi {
   Future<WeatherModel> getWeatherData(String searchParams) async {
-    String url = '$base_url&q=$searchParams&days=7';
+    String url = '$baseUrl&q=$searchParams&days=7';
 
     try {
       Response response = await get(Uri.parse(url));

@@ -11,24 +11,23 @@ class CurrentWeatherWidget extends StatelessWidget {
     if (current?.isDay == 1) {
       if (current?.condition?.text == "Sunny") {
         return WeatherType.sunny;
-      }else if (current?.condition?.text == "Patchy rain nearby") {
+      } else if (current?.condition?.text == "Patchy rain nearby") {
         return WeatherType.lightRainy;
-      }else if (current?.condition?.text == "Overcast") {
+      } else if (current?.condition?.text == "Overcast") {
         return WeatherType.overcast;
-      }
-      else if (current?.condition?.text == "Partly Cloudy" || current?.condition?.text == "Cloudy") {
+      } else if (current?.condition?.text == "Partly Cloudy" || current?.condition?.text == "Cloudy") {
         return WeatherType.cloudy;
-      }else if (current?.condition?.text == "Mist") {
+      } else if (current?.condition?.text == "Mist") {
         return WeatherType.lightSnow;
-      }else if (current?.condition?.text == "Thunder") {
+      } else if (current?.condition?.text == "Thunder") {
         return WeatherType.thunder;
-      }else if (current!.condition!.text!.contains("rain") ) {
+      } else if (current!.condition!.text!.contains("rain")) {
         return WeatherType.heavyRainy;
-      }else if (current.condition!.text!.contains("snow")) {
+      } else if (current.condition!.text!.contains("snow")) {
         return WeatherType.heavySnow;
-      }else if (current.condition?.text == "Clear") {
+      } else if (current.condition?.text == "Clear") {
         return WeatherType.sunny;
-      }else if (current.condition!.text!.contains("fog")) {
+      } else if (current.condition!.text!.contains("fog")) {
         return WeatherType.foggy;
       }
     }
@@ -40,12 +39,10 @@ class CurrentWeatherWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Container(
-          child: WeatherBg(
-            weatherType: getWeatherType(weatherModel?.current),
-            width: MediaQuery.of(context).size.width,
-            height: 300,
-          ),
+        WeatherBg(
+          weatherType: getWeatherType(weatherModel?.current),
+          width: MediaQuery.of(context).size.width,
+          height: 300,
         ),
         SizedBox(
             height: 300,
@@ -77,8 +74,8 @@ class CurrentWeatherWidget extends StatelessWidget {
                   ],
                 ),
                 Container(
-                    margin: EdgeInsets.all(8),
-                    padding: EdgeInsets.all(8),
+                    margin: const EdgeInsets.all(8),
+                    padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: Colors.white30,

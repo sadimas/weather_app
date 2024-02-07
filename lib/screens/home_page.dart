@@ -19,10 +19,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:Colors.blueGrey,
+        backgroundColor: Colors.blueGrey,
         appBar: AppBar(
-          backgroundColor:Colors.blueGrey,
-          title: const Text('Map', style:TextStyle(color: Colors.white)),
+          backgroundColor: Colors.blueGrey,
+          title: const Text('Map', style: TextStyle(color: Colors.white)),
           centerTitle: true,
         ),
         body: SafeArea(
@@ -40,17 +40,14 @@ class _HomePageState extends State<HomePage> {
                       zoom: 5,
                     ),
                     onMapCreated: (GoogleMapController controller) {
-                      setState(() {
-                      });
+                      setState(() {});
                     },
                     tiltGesturesEnabled: false,
                     onLongPress: (latlang) {
                       setState(() {});
                       _addMarkerLongPressed(latlang);
-                  
-                      //we will call this function when pressed on the map
                     },
-                    markers: Set<Marker>.of(markers.values), //all markers are here
+                    markers: Set<Marker>.of(markers.values),
                   ),
                 ))
           ]),
@@ -60,19 +57,20 @@ class _HomePageState extends State<HomePage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              Expanded(child: FilledButton(onPressed: () {
-                markers.clear();
-                setState(() {
-                  
-                });
-              }, child: const Text('MAP'))),
+              Expanded(
+                  child: FilledButton(
+                      onPressed: () {
+                        markers.clear();
+                        setState(() {});
+                      },
+                      child: const Text('MAP'))),
               const SizedBox(width: 10),
               Expanded(
                   child: FilledButton(
                       onPressed: () {
                         Get.off(() => const WeatherPage());
                       },
-                      child: const Text('SEARCH'))),
+                      child: const Text('WEATHER'))),
             ],
           ),
         ));

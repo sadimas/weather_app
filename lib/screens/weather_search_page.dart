@@ -19,12 +19,9 @@ class _WeatherPageState extends State<WeatherPage> {
   WeatherApi weatherApi = WeatherApi();
   TextEditingController textController = TextEditingController();
   String searchText = '';
-  
 
   @override
   void dispose() {
-    // Clean up the controller when the widget is removed from the
-    // widget tree.
     textController.dispose();
     super.dispose();
   }
@@ -73,14 +70,20 @@ class _WeatherPageState extends State<WeatherPage> {
                     IconButton(
                         color: Colors.white,
                         onPressed: () async {
-                          String searchCity = textController.text.trim();
-                          await weatherApi.getWeatherData(searchCity);
-                          setState(() {
-                            searchText = searchCity;
-                          });
-                          //  print(object)
-                          textController.clear();
-                          FocusManager.instance.primaryFocus?.unfocus();
+                          if (textController.text.isEmpty) {
+                            var snackBar = const SnackBar(backgroundColor: Colors.red, content: Center(child: Text('Please, enter city!')));
+
+                            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                            setState(() {});
+                          } else {
+                            String searchCity = textController.text.trim();
+                            await weatherApi.getWeatherData(searchCity);
+                            setState(() {
+                              searchText = searchCity;
+                            });
+                            textController.clear();
+                            FocusManager.instance.primaryFocus?.unfocus();
+                          }
                         },
                         icon: const Icon(Icons.search))
                   ],
@@ -92,7 +95,6 @@ class _WeatherPageState extends State<WeatherPage> {
                     future: weatherApi.getWeatherData(searchText),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
-                        print(snapshot.data);
                         WeatherModel? cityWeatherModel = snapshot.data;
                         return CurrentWeatherWidget(
                           weatherModel: cityWeatherModel,
@@ -110,7 +112,6 @@ class _WeatherPageState extends State<WeatherPage> {
                         future: weatherApi.getWeatherData(searchText),
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
-                            print(snapshot.data);
                             WeatherModel? cityWeatherModel = snapshot.data;
                             return Column(
                               children: [
@@ -138,7 +139,7 @@ class _WeatherPageState extends State<WeatherPage> {
                               ],
                             );
                           }
-                          if (snapshot.hasError && widget.weatherModel?.forecast?.forecastday != null ) {
+                          if (snapshot.hasError && widget.weatherModel?.forecast?.forecastday != null) {
                             return Column(
                               children: [
                                 const SizedBox(
@@ -190,14 +191,19 @@ class _WeatherPageState extends State<WeatherPage> {
                 Expanded(
                     child: FilledButton(
                         onPressed: () async {
-                          String searchCity = textController.text.trim();
-                          await weatherApi.getWeatherData(searchCity);
-                          setState(() {
-                            searchText = searchCity;
-                          });
-                          //  print(object)
-                          textController.clear();
-                          FocusManager.instance.primaryFocus?.unfocus();
+                          if (textController.text.isEmpty) {
+                            var snackBar = const SnackBar(backgroundColor: Colors.red, content: Center(child: Center(child: Text('Please, enter city!'))));
+
+                            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          } else {
+                            String searchCity = textController.text.trim();
+                            await weatherApi.getWeatherData(searchCity);
+                            setState(() {
+                              searchText = searchCity;
+                            });
+                            textController.clear();
+                            FocusManager.instance.primaryFocus?.unfocus();
+                          }
                         },
                         child: const Text('SEARCH'))),
               ],
